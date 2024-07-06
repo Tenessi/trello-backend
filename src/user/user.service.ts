@@ -13,7 +13,8 @@ export class UserService {
         id
       },
       include: {
-        tasks: true
+        tasks: true,
+        columns: true
       }
     })
   }
@@ -24,7 +25,11 @@ export class UserService {
         email
       },
       include: {
-        tasks: true
+        columns: {
+          include: {
+            tasks: true
+          }
+        }
       }
     })
   }
@@ -39,5 +44,7 @@ export class UserService {
     return this.prisma.user.create({
       data: user
     })
+
+    
   }
 }

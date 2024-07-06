@@ -2,11 +2,13 @@ import { Body, Controller, HttpCode, Post, Req, Res, UnauthorizedException, UseP
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { Request, Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiTags('API')
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post('login')
@@ -17,6 +19,7 @@ export class AuthController {
     return response
   }
 
+  @ApiTags('API')
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post('register')
@@ -27,6 +30,7 @@ export class AuthController {
     return response
   }
 
+  @ApiTags('API')
   @HttpCode(200)
   @Post('login/access-token')
   async getNewTokens(@Req() req: Request, @Res({passthrough: true}) res: Response) {
@@ -46,6 +50,7 @@ export class AuthController {
     return response
   }
 
+  @ApiTags('API')
   @HttpCode(200)
   @Post('logout')
   async logout(@Res({passthrough: true }) res: Response) {

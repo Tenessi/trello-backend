@@ -45,4 +45,15 @@ export class TaskService {
     })
   }
 
+  async updateOrder(ids: string[]) {
+    return this.prisma.$transaction(
+      ids.map((id, order) => 
+        this.prisma.task.update({
+          where: { id },
+          data: { order }
+        })
+      )
+    )
+  }
+
 }
